@@ -8,7 +8,6 @@ client.on("ready", () => {
 });
 
 client.on("voiceStateUpdate", (oldState, newState) => {
-  console.log(newState)
   if (newState.channelID === newState.guild.afkChannelID) {
     setTimeout(() => {
       newState.member.voice.kick();
