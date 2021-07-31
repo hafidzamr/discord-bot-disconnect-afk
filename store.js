@@ -3,12 +3,25 @@ module.exports = {
     gombalList = [
       `Eh ${mention} pinjem flashdisk dong, aku pengen transfer data cintaku buat kamu`,
       `${mention} kamu lebih istimewa dari Komet Halley yg muncul 76 tahun sekali. karena kamu muncul satu kali dalam hidupku dan tak tergantikan`,
-      `Cuma tiga cinta yang tdk akan pernah berakhir: cinta ibu pd anaknya,cinta fitri dan cintaku padamu ${mention}`,
+      `Cuma tiga cinta yang tdk akan pernah berakhir: cinta ibu pd anaknya,cinta fitri dan cintaku padamu. ${mention}`,
       `Sejak kenal kamu, bawaanya pengen belajar terus deh. Belajar jadi yang terbaik buat kamu. ${mention}`,
-      `Dulu belajar untuk menuntut ilmu setinggi2nya, kalo sekarang aku belajar untuk menuntut cintamu setinggi2nya ${mention}`
+      `Dulu belajar untuk menuntut ilmu setinggi2nya, kalo sekarang aku belajar untuk menuntut cintamu setinggi2nya. ${mention}`,
+      `Aku yakin kita sebenernya ga saling suka, tapi saling sayang. ${mention}`
     ]
+
+    gifList = [
+      'https://cdn.nekos.life/kiss/kiss_054.gif',
+      'https://cdn.nekos.life/kiss/kiss_108.gif',
+      'https://cdn.nekos.life/kiss/kiss_014.gif',
+      'https://cdn.nekos.life/kiss/kiss_113.gif',
+      'https://cdn.nekos.life/kiss/kiss_094.gif',
+      'https://cdn.nekos.life/kiss/kiss_094.gif'
+    ]
+
+
     const randomGombal = gombalList[Math.floor(Math.random() * gombalList.length)];
-    return randomGombal
+    const randomGif = gifList[Math.floor(Math.random() * gifList.length)];
+    return [randomGombal, randomGif]
   }
 
 }

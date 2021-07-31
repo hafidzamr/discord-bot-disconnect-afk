@@ -11,33 +11,61 @@ client.on("ready", () => {
 client.on("message", (message) => {
   if (message.content.toLowerCase().startsWith('ngab!')) {
     try {
-      const content = message.content.toLowerCase().split(" ")[1]
-      const mention = message.content.toLowerCase().split(" ")[2]
-      let replyMessage;
+      const command = message.content.toLowerCase().split(" ")[0]
+      const content = command.split("!")[1]
+      const mention = message.content.toLowerCase().split(" ")[1]
+
+
 
       if (content) {
+
+        // Clear Text channel Commend just For Admin / Developer only on my Case
         if (content === 'clear') {
-          (async () => {
-            let deleted;
-            do {
-              deleted = await message.channel.bulkDelete(100);
-            } while (deleted.size != 0);
-          })();
+          const ADMIN_ROLE_ID = process.env['ADMIN_ROLE_ID']
+          const DEVELOPER_ROLE_ID = process.env['DEVELOPER_ROLE_ID']
+          const admin = message.member.roles.cache.has(ADMIN_ROLE_ID)
+          const developer = message.member.roles.cache.has(DEVELOPER_ROLE_ID)
+
+          if (!admin && !developer) {
+            message.channel.send("This Feature has been Disabled");
+          } else {
+            (async () => {
+              let deleted;
+              do {
+                deleted = await message.channel.bulkDelete(100);
+              } while (deleted.size != 0);
+            })();
+          }
         }
+
         if (mention) {
+          const gombalContent = getGombal(mention);
           switch (content) {
-            case 'gombal': replyMessage = getGombal(mention)
-              break;
+            case 'gombal':
+              return message.channel.send({
+                embed: {
+                  description: gombalContent[0],
+                  image: { url: gombalContent[1] }
+                }
+              })
+            case 'help':
+              return 'here !'
             default:
               break;
           }
-          message.channel.send({
+        }
+
+        if (content === "gombal" && !mention) {
+          return message.channel.send({
             embed: {
-              description: replyMessage,
-              image: { url: 'https://cdn.nekos.life/hug/hug_016.gif' }
+              title: "GOBLOK !",
+              description: 'ngap!gombal <@mention>',
+              image: { url: 'https://cdn.nekos.life/slap/slap_014.gif' }
             }
           })
         }
+      } else {
+        message.channel.send("Sokap lu ? ");
       }
     } catch (err) {
       console.log(err)
