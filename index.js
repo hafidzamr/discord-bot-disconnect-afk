@@ -16,9 +16,8 @@ client.on("message", (message) => {
       const mention = message.content.toLowerCase().split(" ")[1]
 
       const contentList = ['gombal', 'help', 'clear'];
-      const haveContent = contentList.some(list => content.includes(list));
 
-      if (haveContent) {
+      if (contentList.includes(content)) {
         // Clear Text channel Command just For Admin / Developer only on my Case
         if (content === 'clear') {
           const ADMIN_ROLE_ID = process.env['ADMIN_ROLE_ID']
@@ -52,6 +51,7 @@ client.on("message", (message) => {
         }
 
         // With Mention content
+        const listContentWithMention = ["gombal"]
         if (mention) {
           const gombalContent = getGombal(mention);
           switch (content) {
@@ -67,7 +67,7 @@ client.on("message", (message) => {
           }
         }
 
-        if (content === "gombal" && !mention) {
+        if (listContentWithMention.includes(content) && !mention) {
           return message.channel.send({
             embed: {
               title: "GOBLOK !",
