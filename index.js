@@ -15,7 +15,7 @@ client.on("message", (message) => {
       const content = command.split("!")[1]
       const mention = message.content.toLowerCase().split(" ")[1]
 
-      const contentList = ['gombal', 'help', 'clear'];
+      const contentList = ['gombal', 'help', 'clear','ping'];
 
       if (contentList.includes(content)) {
         // Clear Text channel Command just For Admin / Developer only on my Case
@@ -46,6 +46,8 @@ client.on("message", (message) => {
                 image: { url: 'https://cdn.nekos.life/slap/slap_014.gif' }
               }
             })
+          case 'ping':
+            return message.channel.send(`${Math.round(client.ws.ping)}ms`);
           default:
             break;
         }
