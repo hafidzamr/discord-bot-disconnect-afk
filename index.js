@@ -38,6 +38,20 @@ client.on("message", (message) => {
           }
         }
 
+        // Without Mention content
+        switch (content) {
+          case 'help':
+            return message.channel.send({
+              embed: {
+                description: 'Not yet ready !',
+                image: { url: 'https://cdn.nekos.life/slap/slap_014.gif' }
+              }
+            })
+          default:
+            break;
+        }
+
+        // With Mention content
         if (mention) {
           const gombalContent = getGombal(mention);
           switch (content) {
@@ -48,8 +62,6 @@ client.on("message", (message) => {
                   image: { url: gombalContent[1] }
                 }
               })
-            case 'help':
-              return 'here !'
             default:
               break;
           }
@@ -64,6 +76,7 @@ client.on("message", (message) => {
             }
           })
         }
+
       } else {
         message.channel.send({
           embed: {
