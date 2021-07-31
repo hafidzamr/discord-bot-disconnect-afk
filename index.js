@@ -15,11 +15,11 @@ client.on("message", (message) => {
       const content = command.split("!")[1]
       const mention = message.content.toLowerCase().split(" ")[1]
 
+      const contentList = ['gombal', 'help', 'clear'];
+      const haveContent = contentList.some(list => content.includes(list));
 
-
-      if (content) {
-
-        // Clear Text channel Commend just For Admin / Developer only on my Case
+      if (haveContent) {
+        // Clear Text channel Command just For Admin / Developer only on my Case
         if (content === 'clear') {
           const ADMIN_ROLE_ID = process.env['ADMIN_ROLE_ID']
           const DEVELOPER_ROLE_ID = process.env['DEVELOPER_ROLE_ID']
@@ -27,7 +27,7 @@ client.on("message", (message) => {
           const developer = message.member.roles.cache.has(DEVELOPER_ROLE_ID)
 
           if (!admin && !developer) {
-            message.channel.send("This Feature has been Disabled");
+            message.channel.send("Only Administrator can use this command");
           } else {
             (async () => {
               let deleted;
@@ -65,7 +65,13 @@ client.on("message", (message) => {
           })
         }
       } else {
-        message.channel.send("Sokap lu ? ");
+        message.channel.send({
+          embed: {
+            title: "GOBLOK !",
+            description: 'GAK ADA COMMANDNYA !',
+            image: { url: 'https://cdn.nekos.life/slap/slap_014.gif' }
+          }
+        })
       }
     } catch (err) {
       console.log(err)
