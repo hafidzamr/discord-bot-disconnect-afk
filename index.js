@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const RunningServer = require("./server");
 const { getGombal } = require('./store')
 const client = new Discord.Client();
+const MessageEmbed = new Discord.MessageEmbed
 
 client.on("ready", () => {
   console.log("Bot Started");
@@ -9,24 +10,40 @@ client.on("ready", () => {
 
 client.on("message", (message) => {
   if (message.content.toLowerCase().startsWith('ngab!')) {
-    const content = message.content.toLowerCase().split(" ")[1]
-    const mention = message.content.toLowerCase().split(" ")[2]
-    let replyMessage;
-    if (content && mention) {
-      switch (content) {
-        case 'gombal': replyMessage = getGombal(mention)
-          break;
-        default:
-          break;
+    try {
+      const content = message.content.toLowerCase().split(" ")[1]
+      const mention = message.content.toLowerCase().split(" ")[2]
+      let replyMessage;
+
+      if (content) {
+        if (content === 'clear') {
+          (async () => {
+            let deleted;
+            do {
+              deleted = await message.channel.bulkDelete(100);
+            } while (deleted.size != 0);
+          })();
+        }
+        if (mention) {
+          switch (content) {
+            case 'gombal': replyMessage = getGombal(mention)
+              break;
+            default:
+              break;
+          }
+          message.channel.send({
+            embed: {
+              description: replyMessage,
+              image: { url: 'https://cdn.nekos.life/hug/hug_016.gif' }
+            }
+          })
+        }
       }
+    } catch (err) {
+      console.log(err)
     }
-    message.channel.send(replyMessage)
   }
 })
-
-
-
-
 
 
 client.on("voiceStateUpdate", (oldState, newState) => {
