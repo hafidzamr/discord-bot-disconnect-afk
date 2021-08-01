@@ -19,7 +19,7 @@ client.on("ready", () => {
 });
 
 client.on("message", (message) => {
-  if (message.content.toLowerCase().startsWith('ngab!') || !message.author.bot) {
+  if (!message.content.toLowerCase().startsWith('ngab!') || message.author.bot) return;
 
     const command = message.content.toLowerCase().split(" ")[0]
     const content = command.split("!")[1]
@@ -49,7 +49,6 @@ client.on("message", (message) => {
         }
       })
     }
-  }
 })
 
 
@@ -62,5 +61,5 @@ client.on("voiceStateUpdate", (oldState, newState) => {
 });
 
 RunningServer();
-const token = process.env['TOKEN']
+const token = `ODcwODk3NzE5OTE1NDc0OTg0.YQTctA.N4hwEO9qnuTHz3LPdFxFvD3cJtA`
 client.login(token);
