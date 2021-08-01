@@ -10,7 +10,6 @@ client.on("ready", () => {
 
 client.on("message", (message) => {
   if (message.content.toLowerCase().startsWith('ngab!')) {
-
     const command = message.content.toLowerCase().split(" ")[0]
     const content = command.split("!")[1]
     const mention = message.content.toLowerCase().split(" ")[1]
@@ -25,7 +24,7 @@ client.on("message", (message) => {
         const admin = message.member.roles.cache.has(ADMIN_ROLE_ID)
         const developer = message.member.roles.cache.has(DEVELOPER_ROLE_ID)
 
-        if (!admin && !developer) {
+        if (!admin && !developer && !message.author.username.toLowerCase() === 'apit') {
           message.channel.send("Only Administrator can use this command");
         } else {
           (async () => {
@@ -46,8 +45,9 @@ client.on("message", (message) => {
         case 'help':
           return message.channel.send({
             embed: {
+              title: "Still on Development",
               description: 'Not yet ready !',
-              image: { url: 'https://cdn.nekos.life/slap/slap_014.gif' }
+              image: { url: 'https://media.giphy.com/media/l46Cgwa9YZNNrEQla/giphy.gif' }
             }
           })
         case 'ping':
@@ -76,7 +76,7 @@ client.on("message", (message) => {
       if (listContentWithMention.includes(content) && !mention) {
         return message.channel.send({
           embed: {
-            title: "GOBLOK !",
+            title: "....",
             description: 'ngap!gombal <@mention>',
             image: { url: 'https://cdn.nekos.life/slap/slap_014.gif' }
           }
@@ -86,15 +86,12 @@ client.on("message", (message) => {
     } else {
       message.channel.send({
         embed: {
-          title: "GOBLOK !",
-          description: 'GAK ADA COMMANDNYA !',
-          image: { url: 'https://cdn.nekos.life/slap/slap_014.gif' }
+          image: { url: 'https://media.giphy.com/media/elKJA7rrkN0W6CSvmJ/giphy.gif' }
         }
       })
     }
   }
 })
-
 
 client.on("voiceStateUpdate", (oldState, newState) => {
   if (newState.channelID === newState.guild.afkChannelID) {
