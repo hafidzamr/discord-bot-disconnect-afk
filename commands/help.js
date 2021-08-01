@@ -8,23 +8,23 @@ module.exports = {
         description: 'ngab!<namaCommand> untuk menggunakan command',
         fields:[
           {
-            name: '>clear',
+            name: '> clear',
             value: 'untuk menghapus chat channels, hanya bisa digunakan oleh role admin'
           },
           {
-            name: '>gombal',
+            name: '> gombal',
             value: 'ngab!gombal <mention> untuk menampilkan kata kata gombalan'
           },
           {
-            name: '>help',
+            name: '> help',
             value: 'ngab!help untuk menampilkan command list bot Ngab'
           },
           {
-            name: '>ping',
+            name: '> ping',
             value: 'untuk menampilkan ping per ms'
           },
           {
-            name: '>tebak',
+            name: '> tebak',
             value: 'untuk bermain tebak tebakan, tapi masih belum bisa digunakan'
           },
         ],

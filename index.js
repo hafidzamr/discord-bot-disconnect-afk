@@ -19,7 +19,7 @@ client.on("ready", () => {
 });
 
 client.on("message", (message) => {
-  if (message.content.toLowerCase().startsWith('ngab!') || !message.author.bot) {
+  if (!message.content.toLowerCase().startsWith('ngab!') || message.author.bot) return;
 
     const command = message.content.toLowerCase().split(" ")[0]
     const content = command.split("!")[1]
@@ -49,7 +49,6 @@ client.on("message", (message) => {
         }
       })
     }
-  }
 })
 
 
