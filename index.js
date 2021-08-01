@@ -1,90 +1,47 @@
 const Discord = require("discord.js");
 const RunningServer = require("./server");
-const { getGombal } = require('./store')
 const client = new Discord.Client();
-const MessageEmbed = new Discord.MessageEmbed
+const fs = require('fs');
+
+client.commands = new Discord.Collection();
+
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')) 
+const contentList = [];
+
+for(const file of commandFiles){
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
+  contentList.push(command.name);
+}
 
 client.on("ready", () => {
   console.log("Bot Started");
 });
 
 client.on("message", (message) => {
-  if (message.content.toLowerCase().startsWith('ngab!')) {
+  if (message.content.toLowerCase().startsWith('ngab!') || !message.author.bot) {
 
     const command = message.content.toLowerCase().split(" ")[0]
     const content = command.split("!")[1]
-    const mention = message.content.toLowerCase().split(" ")[1]
-
-    const contentList = ['gombal', 'help', 'clear', 'ping'];
 
     if (contentList.includes(content)) {
-      // Clear Text channel Command just For Admin / Developer only on my Case
-      if (content === 'clear') {
-        const ADMIN_ROLE_ID = process.env['ADMIN_ROLE_ID']
-        const DEVELOPER_ROLE_ID = process.env['DEVELOPER_ROLE_ID']
-        const admin = message.member.roles.cache.has(ADMIN_ROLE_ID)
-        const developer = message.member.roles.cache.has(DEVELOPER_ROLE_ID)
-
-        if (!admin && !developer) {
-          message.channel.send("Only Administrator can use this command");
-        } else {
-          (async () => {
-            let deleted;
-            do {
-              try {
-                deleted = await message.channel.bulkDelete(100);
-              } catch (err) {
-                console.log(err)
-              }
-            } while (deleted.size != 0);
-          })();
-        }
-      }
-
-      // Without Mention content
       switch (content) {
+        case 'clear':
+          return client.commands.get(content).execute(message);
         case 'help':
-          return message.channel.send({
-            embed: {
-              description: 'Not yet ready !',
-              image: { url: 'https://cdn.nekos.life/slap/slap_014.gif' }
-            }
-          })
+          return client.commands.get(content).execute(message);
         case 'ping':
-          return message.channel.send(`${Math.round(client.ws.ping)}ms`);
+          return client.commands.get(content).execute(message,client);
+        case 'gombal':
+          return client.commands.get(content).execute(message);
+        case 'tebak':
+          return client.commands.get(content).execute(message);
         default:
           break;
       }
 
-      // With Mention content
-      const listContentWithMention = ["gombal"]
-      if (mention) {
-        const gombalContent = getGombal(mention);
-        switch (content) {
-          case 'gombal':
-            return message.channel.send({
-              embed: {
-                description: gombalContent[0],
-                image: { url: gombalContent[1] }
-              }
-            })
-          default:
-            break;
-        }
-      }
-
-      if (listContentWithMention.includes(content) && !mention) {
-        return message.channel.send({
-          embed: {
-            title: "GOBLOK !",
-            description: 'ngap!gombal <@mention>',
-            image: { url: 'https://cdn.nekos.life/slap/slap_014.gif' }
-          }
-        })
-      }
-
     } else {
-      message.channel.send({
+      message.channel.send({ 
         embed: {
           title: "GOBLOK !",
           description: 'GAK ADA COMMANDNYA !',
