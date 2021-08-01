@@ -28,7 +28,7 @@ module.exports = {
             value: 'untuk bermain tebak tebakan, tapi masih belum bisa digunakan'
           },
         ],
-        image: { url: 'https://cdn.nekos.life/slap/slap_014.gif' }
+        image: { url: 'https://media.giphy.com/media/mCmc21BKYUuC2A6p8H/giphy.gif' }
       }
     })
   }
