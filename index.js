@@ -61,5 +61,5 @@ client.on("voiceStateUpdate", (oldState, newState) => {
 });
 
 RunningServer();
-const token = `ODcwODk3NzE5OTE1NDc0OTg0.YQTctA.N4hwEO9qnuTHz3LPdFxFvD3cJtA`
+const token = process.env['TOKEN']
 client.login(token);
