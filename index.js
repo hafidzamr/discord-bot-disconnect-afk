@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const RunningServer = require("./server");
 const client = new Discord.Client();
 const fs = require('fs');
+require('dotenv').config();
 
 client.commands = new Discord.Collection();
 
